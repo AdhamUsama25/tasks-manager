@@ -1,0 +1,11 @@
+export type TaskState = "todo" | "doing" | "done";
+export type TaskPriority = "low" | "medium" | "high";
+
+export interface Task {
+    id: number;
+    image: string;
+    title: string;
+    description: string;
+    priority: TaskPriority;
+    state: TaskState;
+}
