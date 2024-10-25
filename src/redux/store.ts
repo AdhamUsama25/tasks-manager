@@ -4,7 +4,7 @@ import tasksReducer from "./features/tasks/tasksSlice";
 export const store = configureStore({
     reducer: {
       // States
-      tasks: tasksReducer,
+      tasksReducer,
       // API
     },
     middleware: (getDefaultMiddleware) =>

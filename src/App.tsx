@@ -5,6 +5,7 @@ function App() {
   return (
     <div className="page">
       <main>
+        <h1>My Tasks</h1>
         <TasksList />
       </main>
     </div>

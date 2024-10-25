@@ -7,10 +7,15 @@
 }
 
 .page main {
-
+  border: 1px solid #E0E0E0;
+  padding: 16px 24px;
   width: 800px;
   background-color: white;
   margin: 0 auto;
   height: 95%;
   border-radius: 12px;
+
+  & > h1 {
+    margin-bottom: 24px;
+  }
 }

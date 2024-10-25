@@ -1,8 +1,7 @@
 .TasksList {
   list-style: none;
   width: 100%;
-  padding: 0 4px;
   & li {
-    margin: 4px 0;
+    margin: 8px 0;
   }
 }

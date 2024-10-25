@@ -1,29 +1,30 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Task } from "../../../types/tasks.types";
+import { ITask } from "../../../types/tasks.types";
+import { dummyTasks } from "../../../data/tasks.data";
 
 interface AuthState {
-  tasks: Task[];
+  tasks: ITask[];
 }
 
 const initialState: AuthState = {
-  tasks: [],
+  tasks: dummyTasks,
 };
 
 export const tasksSlice = createSlice({
   name: "tasksSlice",
   initialState,
   reducers: {
-    addTask: (state, action: PayloadAction<Task>) => {
+    addTask: (state, action: PayloadAction<ITask>) => {
       state.tasks.push(action.payload);
     },
-    editTask: (state, action: PayloadAction<Task>) => {
+    editTask: (state, action: PayloadAction<ITask>) => {
       const taskIndex = state.tasks.findIndex(
         (task) => task.id === action.payload.id
       );
       state.tasks[taskIndex] = action.payload;
     },
-    deleteTask: (state, action: PayloadAction<Task>) => {
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload.id);
+    deleteTask: (state, action: PayloadAction<ITask>) => {
+      state.tasks = state.tasks.filter((task:ITask) => task.id !== action.payload.id);
     },
   },
 });
