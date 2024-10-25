@@ -9,3 +9,5 @@ export interface Task {
     priority: TaskPriority;
     state: TaskState;
 }
+
+export type CreateTask = Omit<Task, "id">;
