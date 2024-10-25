@@ -2,7 +2,7 @@ export type TaskState = "todo" | "doing" | "done";
 export type TaskPriority = "low" | "medium" | "high";
 
 export interface ITask {
-    id: number;
+    id: string;
     image: string;
     title: string;
     description: string;
@@ -10,4 +10,4 @@ export interface ITask {
     state: TaskState;
 }
 
-export type CreateTask = Omit<Task, "id">;
+export type CreateTask = Omit<ITask, "id">;

@@ -5,6 +5,10 @@
   --high-priority-color: #D42B24;
   --medium-priority-color: #FAA80D;
   --low-priority-color: #4772FA;
+
+  --to-do-color: #F95454;
+  --doing-color: #FCCD2A;
+  --done-color: #00FF9C;
 }
 
 /* 1. Use a more-intuitive box-sizing model */

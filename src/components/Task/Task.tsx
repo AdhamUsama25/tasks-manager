@@ -1,4 +1,7 @@
+import { selectTask } from "../../redux/features/tasks/tasksSlice";
+import { useAppDispatch } from "../../redux/hooks";
 import { ITask } from "../../types/tasks.types";
+import StatusButton from "./StatusButton/StatusButton";
 import classes from "./Task.module.css";
 
 const getTaskPriorityColor = (priority: string) => {
@@ -9,6 +12,7 @@ const getTaskPriorityColor = (priority: string) => {
 };
 
 const Task = ({ task }: { task: ITask }) => {
+  const dispatch = useAppDispatch();
   return (
     <div className={classes.Task}>
         
@@ -20,10 +24,10 @@ const Task = ({ task }: { task: ITask }) => {
       )}
 
       <div className={classes.Details}>
-        <p className={classes.Title}>{task.title}</p>
-        <p className={classes.Description}>{task.description}</p>
+        <p onClick={() => dispatch(selectTask(task.id))} title={task.title} className={classes.Title}>{task.title}</p>
+        <p title={task.description} className={classes.Description}>{task.description}</p>
       </div>
-      <button>{task.state}</button>
+      <StatusButton status={task.state} />
     </div>
   );
 };

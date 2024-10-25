@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import classes from "./CreateTask.module.css";
+import CustomDialog from "../UI/CustomDialog/CustomDialog";
 
 const AddTaskButton = () => {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -23,14 +24,14 @@ const AddTaskButton = () => {
 
   return (
     <>
-      <dialog ref={dialogRef} className={classes.AddTaskDialog}>
+      <CustomDialog dialogRef={dialogRef} >
         <form onSubmit={handleSubmit}>
           <label htmlFor="taskName">Task Name:</label>
           <input type="text" id="taskName" required />
           <button type="submit">Add Task</button>
           <button type="button" onClick={closeDialog}>Close</button>
         </form>
-      </dialog>
+      </CustomDialog>
 
       <button onClick={openDialog} className={classes.AddTaskButton}>+</button>
     </>

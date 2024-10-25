@@ -1,0 +1,14 @@
+.StatusButton{
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 25px;
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    width: 100px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}

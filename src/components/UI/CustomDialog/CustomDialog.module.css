@@ -1,0 +1,27 @@
+.CustomDialog {
+  width: 50%;
+  max-width: 600px;
+  margin: auto;
+  position: absolute;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  outline: none;
+  overflow: visible;
+  border: 1px solid #ccc;
+
+  & .CloseButton {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    border:none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 24px;
+  }
+}
