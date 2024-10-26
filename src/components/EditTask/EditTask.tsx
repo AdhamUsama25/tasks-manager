@@ -1,8 +1,8 @@
-import { useRef } from "react";
-import classes from "./CreateTask.module.css";
+import classes from "../CreateTask/CreateTask.module.css";
 import CustomDialog from "../UI/CustomDialog/CustomDialog";
 import {
   CreateTask,
+  EditTask,
   ITask,
   TaskPriority,
   TaskState,
@@ -11,8 +11,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAppDispatch } from "../../redux/hooks";
-import { addTask } from "../../redux/features/tasks/tasksSlice";
-import { v4 as uuidv4 } from "uuid";
+import { editTask } from "../../redux/features/tasks/tasksSlice";
+import { useState } from "react";
 
 const schema = yup.object({
   title: yup.string().required("Please, provide a title"),
@@ -28,50 +28,65 @@ const schema = yup.object({
   image: yup.mixed(),
 });
 
-const AddTaskButton = () => {
-  const dialogRef = useRef<HTMLDialogElement>(null);
+const EditTaskModal = ({
+  task,
+  dialogRef,
+}: {
+  task: ITask;
+  dialogRef: React.RefObject<HTMLDialogElement>;
+}) => {
   const dispatch = useAppDispatch();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<CreateTask>({
+    defaultValues: task,
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<CreateTask> = (data) => {
-    const newTask: ITask = {
-      id: uuidv4(),
+  const onSubmit: SubmitHandler<EditTask> = (data) => {
+    const newTaskDetails: ITask = {
+      id: task.id,
       title: data.title,
       description: data.description,
       state: data.state,
       priority: data.priority,
-      image: data.image && data.image,
+      image: data.image && data.image[0],
     };
-    dispatch(addTask(newTask));
-    closeDialog();
+    dispatch(editTask(newTaskDetails));
+    dialogRef.current?.close();
   };
+  const [imageURL, setImageURL] = useState(task.image || null);
 
-
-  const openDialog = () => {
-    if (dialogRef.current) {
-      dialogRef.current.showModal();
+  const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const url = URL.createObjectURL(files[0]);
+      setImageURL(url);
+      setValue("image", url, { shouldValidate: true });
     }
   };
 
-  const closeDialog = () => {
-    if (dialogRef.current) {
-      dialogRef.current.close();
-    }
-  };
   return (
-    <>
-      <CustomDialog dialogRef={dialogRef}>
+    <CustomDialog showCloseButton={false} dialogRef={dialogRef}>
+      <div style={{ maxHeight: "80vh", overflowY: "scroll" }}>
+        {imageURL && (
+          <img
+            src={imageURL}
+            style={{
+              borderRadius: "8px",
+            }}
+            alt="Task preview"
+          />
+        )}
         <form className={classes.AddTaskForm} onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label htmlFor="taskImage">Image</label>
-            <input type="file" id="taskImage" {...register("image")} />
+            <input type="file" id="taskImage" onChange={onImageChange} />
+            <p>{imageURL}</p>
             <p className={classes.Error}>{errors.image?.message}</p>
           </div>
           <div>
@@ -107,19 +122,15 @@ const AddTaskButton = () => {
             <p className={classes.Error}>{errors.priority?.message}</p>
           </div>
           <div className={classes.FormControl}>
-            <button type="submit">Add Task</button>
-            <button type="button" onClick={closeDialog}>
-              Close
+            <button type="submit">Save</button>
+            <button type="button" onClick={() => dialogRef.current?.close()}>
+              Cancel
             </button>
           </div>
         </form>
-      </CustomDialog>
-
-      <button onClick={openDialog} className={classes.AddTaskButton}>
-        +
-      </button>
-    </>
+      </div>
+    </CustomDialog>
   );
 };
 
-export default AddTaskButton;
+export default EditTaskModal;

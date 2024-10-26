@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import CustomDialog from "../UI/CustomDialog/CustomDialog";
 import { ITask } from "../../types/tasks.types";
 import classes from "./SingleTaskViewer.module.css";
-import { useAppDispatch } from "../../redux/hooks";
-import { deleteTask } from "../../redux/features/tasks/tasksSlice";
+import DeleteTaskPopUP from "./DeleteTaskPopUP";
+import EditTaskModal from "../EditTask/EditTask";
 
 const statusToTextMap = {
   todo: "To Do",
@@ -49,9 +49,9 @@ const SingleTaskViewer = ({
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const dispatch = useAppDispatch();
   const dialogRef = React.useRef<HTMLDialogElement>(null);
   const deleteDialogRef = React.useRef<HTMLDialogElement>(null);
+  const editDialogRef = React.useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     if (dialogRef.current) {
@@ -65,16 +65,9 @@ const SingleTaskViewer = ({
 
   return (
     <>
-      <CustomDialog showCloseButton={false} dialogRef={deleteDialogRef}>
-        <div className={classes.DeleteTaskPopUp}>
-          <p>Are you sure you want to delete this task?</p>
-          <div className={classes.Actions}>
+      <EditTaskModal task={task} dialogRef={editDialogRef} />
+      <DeleteTaskPopUP task={task} dialogRef={deleteDialogRef} />
 
-          <button onClick={() => dispatch(deleteTask(task))}>Yes</button>
-          <button className={classes.CancelBtn} onClick={() => deleteDialogRef.current?.close()}>Cancel</button>
-          </div>
-        </div>
-      </CustomDialog>
       <CustomDialog
         dialogRef={dialogRef}
         preCloseDialogAction={() => setIsOpen(false)}
@@ -98,7 +91,13 @@ const SingleTaskViewer = ({
             </div>
 
             <div className={classes.Actions}>
-              <button onClick={() => null}>Edit</button>
+              <button
+                onClick={() => {
+                  editDialogRef.current?.showModal();
+                }}
+              >
+                Edit
+              </button>
               <button
                 onClick={() => deleteDialogRef.current?.showModal()}
                 className={classes.DeleteBtn}

@@ -1,13 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ITask } from "../../../types/tasks.types";
-import { dummyTasks } from "../../../data/tasks.data";
 
 interface AuthState {
   tasks: ITask[];
 }
 
 const initialState: AuthState = {
-  tasks: dummyTasks,
+  tasks: [],
 };
 
 export const tasksSlice = createSlice({
