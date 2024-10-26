@@ -3,7 +3,7 @@ import { ITask } from "../types/tasks.types";
 export const dummyTasks: ITask[] = [
     {
         id: "1",
-        image: "https://example.com/images/task1.jpg",
+        image: "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630",
         title: "Design Landing Page",
         description: "Create a responsive landing page for the new product launch.",
         priority: "high",

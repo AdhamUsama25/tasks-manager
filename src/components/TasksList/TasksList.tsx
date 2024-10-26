@@ -45,7 +45,9 @@ const TasksList = () => {
     { name: "High", value: "high" as TaskPriority },
   ];
 
-  const filteredTasks = tasks.filter((task) => {
+  const reversedTasks = [...tasks].reverse();
+
+  const filteredTasks = reversedTasks.filter((task) => {
     const matchesSearch = task.title
       .toLowerCase()
       .includes(searchToken.toLowerCase());

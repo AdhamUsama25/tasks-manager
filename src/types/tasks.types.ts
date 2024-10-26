@@ -3,9 +3,9 @@ export type TaskPriority = "low" | "medium" | "high";
 
 export interface ITask {
   id: string;
-  image: string;
+  image?: string;
   title: string;
-  description: string;
+  description?: string;
   priority: TaskPriority;
   state: TaskState;
 }

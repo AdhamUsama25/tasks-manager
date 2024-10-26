@@ -1,4 +1,14 @@
 
+.Container{
+    width: 105px;
+    height: 33px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
 .StatusButton{
     background-color: #f5f5f5;
     border: none;
@@ -18,7 +28,7 @@
     position: absolute;
     inset-area: bottom;
     position-area: bottom;
-    margin: 16px;
+    margin: 8px;
     border: 1px solid #f5f5f5;
     border-radius: 8px;
     width: 120px;

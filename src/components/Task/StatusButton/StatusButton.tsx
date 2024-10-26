@@ -1,4 +1,3 @@
-import { stat } from "fs";
 import { editTask } from "../../../redux/features/tasks/tasksSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 import { ITask } from "../../../types/tasks.types";
@@ -47,7 +46,7 @@ const StatusButton = ({ task }: { task: ITask }) => {
   ];
 
   return (
-    <>
+    <div className={classes.Container}>
       <button
         popovertarget={`${task.id}-status-menu`}
         style={{
@@ -78,7 +77,7 @@ const StatusButton = ({ task }: { task: ITask }) => {
           </button>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
