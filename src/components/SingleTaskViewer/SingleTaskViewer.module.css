@@ -3,9 +3,109 @@
   border-radius: 8px;
   overflow: hidden;
 
-  & img {
+  img {
     width: 100%;
     height: 300px;
     object-fit: cover;
+  }
+
+  .Content {
+    width: 100%;
+    padding: 16px;
+
+    .StatusAndPriority {
+      margin-top: 16px;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 8px;
+      p {
+        height: 30px;
+        border-radius: 12px;
+        text-align: center;
+        padding: 4px 8px;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.5);
+      }
+    }
+    .Actions {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      margin-top: 16px;
+      gap: 8px;
+
+      button {
+        padding: 4px 16px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: none;
+        background-color: var(--low-priority-color);
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        &.DeleteBtn {
+          background-color: white;
+          color: gray;
+
+          &:hover {
+            color: var(--high-priority-color);
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+.DeleteTaskPopUp {
+  width: 100%;
+  padding: 16px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+
+  .Actions {
+    font-size: 16px;
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    display: flex;
+    gap: 8px;
+
+    button {
+      width: 100px;
+      padding: 4px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      background-color: var(--low-priority-color);
+      color: white;
+      outline: none;
+
+      &:hover {
+        background-color: hsl(226, 95%, 40%);
+      }
+
+      &.CancelBtn {
+        background-color: white;
+        color: gray;
+
+        &:hover {
+          color: var(--high-priority-color);
+          text-decoration: underline;
+        }
+      }
+    }
   }
 }
