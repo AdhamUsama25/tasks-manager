@@ -1,28 +1,32 @@
 import React, { useEffect } from "react";
 import CustomDialog from "../UI/CustomDialog/CustomDialog";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { unselectTask } from "../../redux/features/tasks/tasksSlice";
+import { ITask } from "../../types/tasks.types";
 
-const SingleTaskViewer = () => {
+const SingleTaskViewer = ({
+  task,
+  isOpen,
+  setIsOpen
+}: {
+  task: ITask;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const dialogRef = React.useRef<HTMLDialogElement>(null);
-  const selectedTaskId = useAppSelector(
-    (state) => state.tasksReducer.selectedTaskId
-  );
-  const selectedTask = useAppSelector((state) => state.tasksReducer.tasks.find((task) => task.id === selectedTaskId));
-
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (selectedTaskId) dialogRef.current?.showModal();
-  }, [selectedTaskId]);
+    if (dialogRef.current) {
+      if (isOpen) {
+        dialogRef.current.showModal();
+      } else {
+        dialogRef.current.close();
+      }
+    }
+  }, [isOpen]);
 
   return (
-    <CustomDialog
-      dialogRef={dialogRef}
-      preCloseDialogAction={() => dispatch(unselectTask())}
-    >
-      <h2>{selectedTask?.title}</h2>
-      <p>{selectedTask?.description}</p>
+    <CustomDialog dialogRef={dialogRef} preCloseDialogAction={()=>setIsOpen(false)}>
+      <h2>{task.title}</h2>
+      <p>{task.description}</p>
     </CustomDialog>
   );
 };

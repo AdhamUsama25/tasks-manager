@@ -13,12 +13,11 @@ const CustomDialog = ({
 
 
   const closeDialog = () => {
-    if (preCloseDialogAction) preCloseDialogAction();
     dialogRef.current?.close();
   };
 
   return (
-    <dialog ref={dialogRef} className={classes.CustomDialog}>
+    <dialog onClose={preCloseDialogAction} ref={dialogRef} className={classes.CustomDialog}>
       {children}
       <button className={ classes.CloseButton}onClick={closeDialog}>×</button>
     </dialog>

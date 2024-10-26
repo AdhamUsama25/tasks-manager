@@ -1,6 +1,6 @@
-import { selectTask } from "../../redux/features/tasks/tasksSlice";
-import { useAppDispatch } from "../../redux/hooks";
+import { useState } from "react";
 import { ITask } from "../../types/tasks.types";
+import SingleTaskViewer from "../SingleTaskViewer/SingleTaskViewer";
 import StatusButton from "./StatusButton/StatusButton";
 import classes from "./Task.module.css";
 
@@ -12,23 +12,37 @@ const getTaskPriorityColor = (priority: string) => {
 };
 
 const Task = ({ task }: { task: ITask }) => {
-  const dispatch = useAppDispatch();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
-    <div className={classes.Task}>
-        
-      {task.priority && (
-        <div
-          style={{ backgroundColor: getTaskPriorityColor(task.priority) }}
-          className={classes.Priority}
-        />
-      )}
+    <>
+      <div className={classes.Task}>
+        {task.priority && (
+          <div
+            style={{ backgroundColor: getTaskPriorityColor(task.priority) }}
+            className={classes.Priority}
+          />
+        )}
 
-      <div className={classes.Details}>
-        <p onClick={() => dispatch(selectTask(task.id))} title={task.title} className={classes.Title}>{task.title}</p>
-        <p title={task.description} className={classes.Description}>{task.description}</p>
+        <div className={classes.Details}>
+          <p
+            onClick={() => setIsDialogOpen(true)}
+            title={task.title}
+            className={classes.Title}
+          >
+            {task.title}
+          </p>
+          <p title={task.description} className={classes.Description}>
+            {task.description}
+          </p>
+        </div>
+        <StatusButton task={task}/>
       </div>
-      <StatusButton status={task.state} />
-    </div>
+      <SingleTaskViewer
+        isOpen={isDialogOpen}
+        setIsOpen={setIsDialogOpen}
+        task={task}
+      />
+    </>
   );
 };
 

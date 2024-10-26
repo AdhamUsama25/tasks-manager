@@ -4,11 +4,18 @@ import { useAppSelector } from "../../redux/hooks";
 
 const TasksList = () => {
   const tasks = useAppSelector((state) => state.tasksReducer.tasks);
+  const undoneTasks = tasks.filter((task) => task.state !== "done");
+  const doneTasks = tasks.filter((task) => task.state === "done");
 
   return (
     <>
       <ul className={classes.TasksList}>
-        {tasks.map((task) => (
+        {undoneTasks.map((task) => (
+          <li key={task.id}>
+            <Task task={task} />
+          </li>
+        ))}
+        {doneTasks.map((task) => (
           <li key={task.id}>
             <Task task={task} />
           </li>
