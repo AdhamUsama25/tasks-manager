@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseURL } from "../config";
-import { CreateTask, Task } from "../../types/tasks.types";
+import { CreateTask, ITask } from "../../types/tasks.types";
 
 export const tasksAPI = createApi({
   reducerPath: "tasksAPI",
@@ -18,7 +18,7 @@ export const tasksAPI = createApi({
       invalidatesTags: ["tasks"],
     }),
     editTask: builder.mutation({
-      query: (task: Task) => ({
+      query: (task: ITask) => ({
         url: `/tasks.json/${task.id}`,
         method: "PUT",
         body: task,
