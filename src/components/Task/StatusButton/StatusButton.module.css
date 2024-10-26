@@ -1,15 +1,44 @@
-
-.Container{
-    width: 105px;
-    height: 33px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+.Container {
+  width: 105px;
+  height: 33px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-.StatusButton{
+.StatusButton {
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 25px;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  width: 100px;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+.StatusMenu {
+  z-index: 10;
+  background-color: white;
+  top: 35px;
+  position: absolute;
+  inset-area: bottom;
+  border: 1px solid #f5f5f5;
+  border-radius: 8px;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  button {
     background-color: #f5f5f5;
     border: none;
     border-radius: 25px;
@@ -22,20 +51,5 @@
     width: 100px;
     transition: background-color 0.3s;
     font-weight: bold;
-}
-
-.StatusMenu{
-    position: absolute;
-    inset-area: bottom;
-    position-area: bottom;
-    margin: 8px;
-    border: 1px solid #f5f5f5;
-    border-radius: 8px;
-    width: 120px;
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
 }

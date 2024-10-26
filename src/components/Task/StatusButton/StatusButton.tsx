@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { editTask } from "../../../redux/features/tasks/tasksSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 import { ITask } from "../../../types/tasks.types";
@@ -22,25 +23,37 @@ const statusToStyleMap = {
 };
 
 const StatusButton = ({ task }: { task: ITask }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dispatch = useAppDispatch();
+
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   const statusToMenuItems = [
     {
       text: "To Do",
       status: "todo",
-      action: () => dispatch(editTask({ ...task, state: "todo" })),
+      action: () => {
+        dispatch(editTask({ ...task, state: "todo" }));
+        setIsMenuOpen(false);
+      },
       style: statusToStyleMap.todo,
     },
     {
       text: "Doing",
       status: "doing",
-      action: () => dispatch(editTask({ ...task, state: "doing" })),
+      action: () => {
+        dispatch(editTask({ ...task, state: "doing" }));
+        setIsMenuOpen(false);
+      },
       style: statusToStyleMap.doing,
     },
     {
       text: "Done",
       status: "done",
-      action: () => dispatch(editTask({ ...task, state: "done" })),
+      action: () => {
+        dispatch(editTask({ ...task, state: "done" }));
+        setIsMenuOpen(false);
+      },
       style: statusToStyleMap.done,
     },
   ];
@@ -48,35 +61,27 @@ const StatusButton = ({ task }: { task: ITask }) => {
   return (
     <div className={classes.Container}>
       <button
-        popovertarget={`${task.id}-status-menu`}
-        style={{
-          ...statusToStyleMap[task.state],
-          anchorName: `--${task.id}-statusButton`,
-        }}
         className={classes.StatusButton}
+        style={statusToStyleMap[task.state]}
+        onClick={toggleMenu}
       >
         {statusToTextMap[task.state]}
       </button>
 
-      <div
-        className={classes.StatusMenu}
-        id={`${task.id}-status-menu`}
-        popover="auto"
-        style={{
-          positionAnchor: `--${task.id}-statusButton`,
-        }}
-      >
-        {statusToMenuItems.map((item) => (
-          <button
-            key={item.status}
-            onClick={item.action}
-            className={classes.StatusButton}
-            style={item.style}
-          >
-            {item.text}
-          </button>
-        ))}
-      </div>
+      {isMenuOpen && (
+        <div className={classes.StatusMenu}>
+          {statusToMenuItems.map((item) => (
+            <button
+              key={item.status}
+              className={classes.StatusMenuItem}
+              onClick={item.action}
+              style={item.style}
+            >
+              {item.text}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
